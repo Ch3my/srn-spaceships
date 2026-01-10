@@ -16,6 +16,13 @@ export const Colors = {
     icon: '#687076',
     tabIconDefault: '#687076',
     tabIconSelected: tintColorLight,
+    card: '#fff',
+    badgeBackground: '#e8f4ff',
+    filterButton: '#fff',
+    filterButtonBorder: '#ddd',
+    filterButtonActive: '#0066cc',
+    filterText: '#666',
+    filterTextActive: '#fff',
   },
   dark: {
     text: '#ECEDEE',
@@ -24,6 +31,13 @@ export const Colors = {
     icon: '#9BA1A6',
     tabIconDefault: '#9BA1A6',
     tabIconSelected: tintColorDark,
+    card: '#1f1f1f',
+    badgeBackground: '#1a3a4a',
+    filterButton: '#2a2a2a',
+    filterButtonBorder: '#444',
+    filterButtonActive: '#0a7ea4',
+    filterText: '#aaa',
+    filterTextActive: '#fff',
   },
 };
 

@@ -3,11 +3,14 @@ import { useLocalSearchParams, Stack } from 'expo-router';
 import { useSpaceship } from '@/hooks/use-spaceships';
 import { ThemedView } from '@/components/themed-view';
 import { ThemedText } from '@/components/themed-text';
-import { ErrorMessage } from '@/components/error-message';
+import { ErrorMessage } from '@/components/ErrorMessage';
+import { useThemeColor } from '@/hooks/use-theme-color';
 
 export default function SpaceshipDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { data: spaceship, isLoading, error, refetch } = useSpaceship(parseInt(id));
+  const badgeBackground = useThemeColor({}, 'badgeBackground');
+  const badgeText = useThemeColor({}, 'tint');
 
   if (isLoading) {
     return (
@@ -41,16 +44,17 @@ export default function SpaceshipDetailScreen() {
           headerBackTitle: 'Atrás',
         }}
       />
-      <ScrollView style={styles.scrollView}>
-        <ThemedView style={styles.container}>
-          <ThemedView style={styles.header}>
-            <ThemedText type="title" style={styles.title}>
-              {spaceship.name}
-            </ThemedText>
-            <ThemedView style={styles.factionBadge}>
-              <ThemedText style={styles.factionText}>{spaceship.faction}</ThemedText>
+      <ThemedView style={styles.outerContainer}>
+        <ScrollView style={styles.scrollView}>
+          <ThemedView style={styles.container}>
+            <ThemedView style={styles.header}>
+              <ThemedText type="title" style={styles.title}>
+                {spaceship.name}
+              </ThemedText>
+              <ThemedView style={[styles.factionBadge, { backgroundColor: badgeBackground }]}>
+                <ThemedText style={[styles.factionText, { color: badgeText }]}>{spaceship.faction}</ThemedText>
+              </ThemedView>
             </ThemedView>
-          </ThemedView>
 
           <ThemedView style={styles.section}>
             <ThemedText type="subtitle" style={styles.sectionTitle}>
@@ -74,11 +78,15 @@ export default function SpaceshipDetailScreen() {
           </ThemedView>
         </ThemedView>
       </ScrollView>
+      </ThemedView>
     </>
   );
 }
 
 const styles = StyleSheet.create({
+  outerContainer: {
+    flex: 1,
+  },
   scrollView: {
     flex: 1,
   },
@@ -110,14 +118,12 @@ const styles = StyleSheet.create({
   },
   factionBadge: {
     alignSelf: 'flex-start',
-    backgroundColor: '#e8f4ff',
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 16,
   },
   factionText: {
     fontSize: 14,
-    color: '#0066cc',
     fontWeight: '600',
   },
   section: {
