@@ -61,7 +61,6 @@ srn-spaceships/
 ## Requisitos Previos
 
 - Node.js 18 o superior
-- npm 9 o superior
 - Docker (opcional, para ejecutar el API en contenedor)
 - Expo Go app en tu dispositivo móvil (opcional)
 
@@ -214,6 +213,105 @@ Obtiene el listado de 10 naves espaciales
 - Docker Compose
 - npm Workspaces
 
+## Video Demo
+
+🎥 [Ver demostración de la aplicación funcionando](#)
+
+> **Nota**: Aquí debes agregar el enlace a tu video demo en Loom, YouTube o GIF mostrando la aplicación en funcionamiento.
+
+## Preguntas Técnicas
+
+### 1. EAS Build: Configuración para generar .apk e .ipa de producción
+
+Para generar builds de producción con EAS (Expo Application Services), se requiere:
+
+**Configuración en `eas.json`:**
+- Definir perfiles de build: `development`, `preview` y `production`
+- Para Android: configurar `buildType` como `aab` (producción) o `apk` (testing)
+- Para iOS: configurar `simulator: false` en producción
+- Opcionalmente configurar sección `submit` con credenciales para envío automático a stores
+
+**Configuración en `app.json`:**
+- Definir `bundleIdentifier` (iOS) y `package` (Android) únicos
+- Configurar `version`, `buildNumber` (iOS) y `versionCode` (Android)
+- Configurar íconos y assets necesarios
+
+**Pasos generales:**
+1. Instalar EAS CLI globalmente: `npm install -g eas-cli`
+2. Login: `eas login`
+3. Configurar proyecto: `eas build:configure`
+4. Generar build de Android: `eas build --platform android --profile production`
+5. Generar build de iOS: `eas build --platform ios --profile production`
+6. Opcionalmente enviar a stores: `eas submit --platform [android|ios]`
+
+**Requisitos previos:**
+- Cuenta de Expo
+- Cuenta de Apple Developer (para iOS)
+- Cuenta de Google Play Console (para Android)
+- Credenciales configuradas mediante `eas credentials`
+
+### 2. Offline First: Estrategia de BD local
+
+Para implementar funcionalidad offline-first, usaría **WatermelonDB** como solución de base de datos local.
+
+**Razones para elegir WatermelonDB:**
+- Performance optimizada para React Native con lazy loading y queries eficientes
+- Sistema de sincronización bidireccional built-in
+- Operaciones en hilos separados (multi-threading) para mantener UI fluida
+- Excelente soporte de TypeScript
+- Integración reactiva con React hooks mediante observables
+
+**Alternativas consideradas:**
+- **SQLite + expo-sqlite**: Más ligero pero requiere implementar sincronización manualmente
+- **AsyncStorage + Redux Persist**: Solo viable para datos simples, no óptimo para queries complejos
+
+**Estrategia de implementación:**
+1. Sincronización inicial al abrir la app (si hay conexión)
+2. Todas las lecturas desde BD local (garantiza funcionalidad offline)
+3. Sincronización en background periódica
+4. Indicador visual del estado de sincronización
+5. Queue de operaciones pendientes para sincronizar cuando se recupere conexión
+6. Manejo de conflictos con estrategia "last write wins" o resolución custom
+
+### 3. Apple Guideline 4.2: Solución para rechazo por "Minimum Functionality"
+
+Si Apple rechaza la app por la guideline 4.2 (Minimum Functionality o "spam app"), propondría las siguientes soluciones:
+
+#### Soluciones Técnicas y de Producto:
+
+**1. Expandir Funcionalidad Core:**
+
+- **Sistema de Favoritos**: Permitir guardar naves favoritas con persistencia local
+- **Comparador de Naves**: Pantalla para comparar especificaciones de 2-3 naves lado a lado
+- **Search & Advanced Filters**: Búsqueda por nombre + filtros múltiples combinados
+- **Estadísticas**: Dashboard con analytics de las naves (cantidad por facción, gráficos, etc.)
+- **Modo Offline Completo**: Implementar sincronización y caché como se describe arriba
+
+**2. Agregar Contenido Único:**
+
+- **Visualizaciones Interactivas**: Modelos 3D o imágenes de alta calidad de las naves
+- **Ficha Técnica Expandida**: Agregar campos como velocidad, armamento, tripulación, etc.
+- **Timeline Histórico**: Mostrar apariciones de cada nave en películas/series
+- **Galería Multimedia**: Screenshots de escenas icónicas de cada nave
+
+**3. Funcionalidad Social/Gamification:**
+
+- **Sistema de Rating**: Permitir a usuarios valorar sus naves favoritas
+- **Quiz/Trivia**: Mini-juego de preguntas sobre las naves
+- **Logros**: Sistema de achievements por explorar el catálogo
+- **Compartir**: Share cards visuales de naves en redes sociales
+
+**4. Argumentación en App Review:**
+
+Si las funcionalidades están implementadas pero el rechazo persiste:
+
+- **Demo Video Detallado**: Mostrar todas las features en un video de revisión
+- **Release Notes Descriptivas**: Explicar claramente el valor único de la app
+- **Diferenciación**: Destacar qué hace esta app diferente a otras similares
+- **Roadmap**: Compartir el plan de features futuras si es apropiado
+
+Esta combinación demuestra que la app no es solo un "wrapper" de una web o JSON estático, sino una experiencia mobile nativa con valor real para los usuarios.
+
 ## Troubleshooting
 
 ### El API no se conecta desde el emulador Android
@@ -228,7 +326,3 @@ Ejecuta `npm run build` para compilar el paquete de tipos compartidos
 
 ### TypeScript errors después de cambios
 Ejecuta `npm run build` para recompilar los paquetes
-
-## Licencia
-
-MIT
