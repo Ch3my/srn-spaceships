@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { CustomHeader } from '@/components/CustomHeader';
+import React from 'react';
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -25,7 +27,13 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
+        <Stack
+          screenOptions={{
+            header: (props) => (
+              <CustomHeader {...props} colorScheme={colorScheme} />
+            ),
+          }}
+        >
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="spaceship/[id]" options={{ headerShown: true }} />
         </Stack>
