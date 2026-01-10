@@ -1,0 +1,14 @@
+{
+  "name": "srn-spaceships",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=packages/shared-types && npm run build --workspace=apps/api",
+    "api": "npm run dev --workspace=apps/api",
+    "mobile": "npm run start --workspace=apps/mobile"
+  }
+}

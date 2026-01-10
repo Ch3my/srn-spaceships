@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+apps/api/dist/
+packages/shared-types/dist/
+
+# Expo
+apps/mobile/.expo/
+apps/mobile/dist/
+apps/mobile/npm-debug.*
+apps/mobile/*.jks
+apps/mobile/*.p8
+apps/mobile/*.p12
+apps/mobile/*.key
+apps/mobile/*.mobileprovision
+apps/mobile/*.orig.*
+apps/mobile/web-build/
+
+# macOS
+.DS_Store
+
+# Environment
+.env
+.env.local
+.env.*.local
+apps/mobile/.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
