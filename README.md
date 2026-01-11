@@ -215,9 +215,7 @@ Obtiene el listado de 10 naves espaciales
 
 ## Video Demo
 
-🎥 [Ver demostración de la aplicación funcionando](https://youtube.com/shorts/zhIt194jwh8?si=0kmEgzM-EyFJqjWP)
-
-<iframe width="315" height="560" src="https://www.youtube.com/embed/zhIt194jwh8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+[![Ver demostración de la aplicación funcionando](https://img.youtube.com/vi/zhIt194jwh8/0.jpg)](https://youtube.com/shorts/zhIt194jwh8?si=0kmEgzM-EyFJqjWP)
 
 
 ## Preguntas Técnicas
