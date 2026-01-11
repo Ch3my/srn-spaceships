@@ -166,6 +166,9 @@ Después de cambiar el `.env`, reinicia el servidor Expo para que los cambios to
 - `npm run android` - Abre en emulador Android
 - `npm run ios` - Abre en simulador iOS
 - `npm run web` - Abre en navegador
+- `npm test` - Ejecuta los tests con Jest
+- `npm run test:watch` - Ejecuta los tests en modo watch
+- `npm run test:coverage` - Ejecuta los tests con reporte de cobertura
 
 ## Endpoints del API
 
